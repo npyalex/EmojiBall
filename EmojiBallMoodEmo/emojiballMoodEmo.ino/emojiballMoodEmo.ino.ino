@@ -36,28 +36,20 @@ void loop() {
   if(isGameStarted){
     // Game Started - Check for inputs
     checkLight();
+    checkOrient();
     Serial.println("--------------------------");
     String mp = String(moodPoints);
     Serial.println("--------------------------" + mp);
     Serial.println("--------------------------");
     if(moodPoints <= 1000 && moodPoints > 750){
       // Happy Zone
-      digitalWrite(greenPin,HIGH);
-      digitalWrite(redPin,LOW);
-      digitalWrite(yellowPin, LOW);
-      digitalWrite(bluePin, LOW);
+      getHappy();
     } else if(moodPoints <= 750 && moodPoints > 250){
       // Calm Zone
-      digitalWrite(greenPin,LOW);
-      digitalWrite(redPin,LOW);
-      digitalWrite(yellowPin, HIGH);
-      digitalWrite(bluePin, LOW);
+      getCalm();
     } else if(moodPoints <= 250 && moodPoints >= 0){
       // Mad Zone
-      digitalWrite(greenPin,LOW);
-      digitalWrite(redPin,HIGH);
-      digitalWrite(yellowPin, LOW);
-      digitalWrite(bluePin, LOW);
+      getMad();
     } else  {
       // Error occured
       Serial.println("Error with mood points range");
@@ -81,14 +73,12 @@ void checkLight(){
   delay(1); // delay in between reads for stability
   if(lightVal > 500){
     // Light is bright, score mood points, max points 1000
-    // moodPoints += 10;
-    
+    // moodPoints += 10;  
     if(moodPoints >= 1000){
       moodPoints = 1000;
     } else {
       moodPoints += 10;
-    }
-    
+    }   
   } else {
     // Light is dim, lose mood points, min points 0
     // moodPoints -=10;
@@ -97,7 +87,68 @@ void checkLight(){
     } else {
       moodPoints -= 10;
     }
-    
-
   }
 }
+
+/*
+ * Make the ball Happy
+ * Turns on green LED & turns off the rest. 
+ * Pass 'happy' mood to makeASound()
+ */
+void getHappy(){
+  //TODO Check the degree of happiness
+  digitalWrite(greenPin,HIGH);
+  digitalWrite(redPin,LOW);
+  digitalWrite(yellowPin, LOW);
+  digitalWrite(bluePin, LOW);
+  makeASound("happy");
+}
+
+/*
+ * Make the ball Mad
+ * Turns on red LED & turns off the rest. 
+ * Pass 'mad' mood to makeASound()
+ */
+void getMad(){
+  digitalWrite(greenPin,LOW);
+  digitalWrite(redPin,HIGH);
+  digitalWrite(yellowPin, LOW);
+  digitalWrite(bluePin, LOW);
+  makeASound("mad");
+}
+
+/*
+ * Make the ball Calm
+ * Turns on yellow LED & turns off the rest. 
+ * Pass 'calm' mood to makeASound()
+ */
+void getCalm(){
+  digitalWrite(greenPin,LOW);
+  digitalWrite(redPin,LOW);
+  digitalWrite(yellowPin, HIGH);
+  digitalWrite(bluePin, LOW);
+  makeASound("calm");
+}
+
+/*
+ * Make a sound depending on the mood
+ */
+void makeASound(String mood){
+  // TODO Check the mood & play a sound
+  if(mood.equals("happy")){
+    Serial.println("Happy Song");    
+  } else if(mood.equals("calm")){
+    Serial.println("Calm Song");
+  } else if (mood.equals("mad")){
+    Serial.println("Mad Song");
+  } else {
+    Serial.println("Ooops! Mood is undefined");
+  }
+}
+
+/*
+ * Check the balls orientation
+ */
+void checkOrient(){
+  // TODO Check the orientation of the ball
+ }
