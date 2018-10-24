@@ -2,10 +2,10 @@
  * Melody Code provided from code by Tom Igoe
  * http://www.arduino.cc/en/Tutorial/Tone
  */
-//#include <Wire.h>
-//#include <Adafruit_Sensor.h>
-//#include <Adafruit_BNO055.h>
-//#include <utility/imumaths.h>
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BNO055.h>
+#include <utility/imumaths.h>
 
 #include "pitches.h"
 //notes in the melody
@@ -28,7 +28,7 @@ const int bluePin = 5;
 //intialize Pin 4 as the speaker pin
 const int speakerPin = 4;
 //intialize Pin 3 as the orientation pin
-const int orientPin = 3;
+//const int orientPin = 3;
 int xAccel, yAccel, zAccel;
 bool angry = false;
 int threshold = 2;
@@ -50,8 +50,8 @@ unsigned long lastRead;
 /* Set the delay between fresh samples */
 #define BNO055_SAMPLERATE_DELAY_MS (100)
 
-//Adafruit_BNO055 bno = Adafruit_BNO055();
-//imu::Vector<3> v;
+Adafruit_BNO055 bno = Adafruit_BNO055();
+imu::Vector<3> v;
 
 /*
     Arduino setup function (automatically called at startup)
@@ -81,16 +81,16 @@ void setup() {
   Serial.begin(9600);  
 
   /* Initialise the sensor */
-  /*
+  
   if (!bno.begin())
-  { */
+  { 
     /* There was a problem detecting the BNO055 ... check your connections */
-    /*Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
     while (1);
   }
 
   delay(1000);
-  bno.setExtCrystalUse(true);*/
+  bno.setExtCrystalUse(true);
 }
 
 void loop() {
@@ -101,7 +101,7 @@ void loop() {
     // Game Started - Check for inputs
     // Game Started - Check the orientation
     checkLight();
-    // checkOrient();
+    checkOrient();
     Serial.println("--------------------------");
     String mp = String(moodPoints);
     Serial.println("---------- Mood Points" + mp);
@@ -249,12 +249,12 @@ void checkOrient(){
   // - VECTOR_EULER         - degrees
   // - VECTOR_LINEARACCEL   - m/s^2
   // - VECTOR_GRAVITY       - m/s^2
-  /*
+  
   v = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
   xAccel = (v.x());
   yAccel = (v.y());
   zAccel = (v.z());
-  */
+  
   
   /* Display the floating point data */
 
@@ -267,11 +267,11 @@ void checkOrient(){
   Serial.print(v.z()); //z accel
   Serial.println(",20.0"); //set upper scale
   */ 
-  /*
+ 
   if(millis()-lastRead>=sampleRate){ 
     //some delay before it becomes calm again
     /*if the acceleraction is above a threshold, become angry*/
-    /*if ((xAccel>threshold)||(xAccel<-threshold)||(yAccel>threshold)||(yAccel<-threshold)||(zAccel>threshold)||(zAccel<-threshold)){
+    if ((xAccel>threshold)||(xAccel<-threshold)||(yAccel>threshold)||(yAccel<-threshold)||(zAccel>threshold)||(zAccel<-threshold)){
       (angry = true);
     } else {
       (angry = false);
@@ -279,14 +279,14 @@ void checkOrient(){
     
     if (angry==true){
       Serial.println("Don't move me so fast!");
-      digitalWrite (orientPin,HIGH);
+      (moodPoints-10);
     } else  {
       Serial.println("I am calm");
-      digitalWrite (orientPin,LOW);
+      (moodPoints+10);
       (angry = false);
-    }*/
+    }
 
-    /* 
+  /*
     Display calibration status for each sensor.
     uint8_t system, gyro, accel, mag = 0;
     bno.getCalibration(&system, &gyro, &accel, &mag);
@@ -299,11 +299,11 @@ void checkOrient(){
       Serial.print(accel, DEC);
       Serial.print(" M=");
       Serial.print(mag, DEC);
-    }
+    } */
     Serial.println();
-    */
 
-    /*delay(BNO055_SAMPLERATE_DELAY_MS);
+
+    delay(BNO055_SAMPLERATE_DELAY_MS);
     lastRead = millis();
-  }*/
+  }
  }
