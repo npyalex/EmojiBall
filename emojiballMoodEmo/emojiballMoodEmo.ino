@@ -279,7 +279,7 @@ void checkOrient(){
     
     if (angry==true){
       Serial.println("Don't move me so fast!");
-      (moodPoints-10);
+      (moodPoints-50);
     } else  {
       Serial.println("I am calm");
       (moodPoints+10);
