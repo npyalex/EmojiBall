@@ -146,7 +146,7 @@ void checkLight(){
     if(moodPoints >= 1000){
       moodPoints = 1000;
     } else {
-      moodPoints += 10;
+      moodPoints += 50;
     }   
   } else {
     // Light is dim, lose mood points, min points 0
@@ -154,7 +154,7 @@ void checkLight(){
     if(moodPoints <= 0){
       moodPoints = 0;
     } else {
-      moodPoints -= 10;
+      moodPoints -= 50;
     }
   }
 }
@@ -217,7 +217,7 @@ void makeASound(String mood){
   } else if(mood.equals("calm")){
     Serial.println("Calm Song");
     for (int thisNote = 0; thisNote < 10; thisNote++) {  
-      int noteDuration = 2000 / calmNoteDuration[thisNote];
+      int noteDuration = 1500 / calmNoteDuration[thisNote];
       tone(speakerPin, calmTune[thisNote], noteDuration);
   
       int pauseBetweenNotes = noteDuration * 1.30;
@@ -276,18 +276,20 @@ void checkOrient(){
     //some delay before it becomes calm again
     /*if the acceleraction is above a threshold, become angry*/
     if ((xAccel>threshold)||(xAccel<-threshold)||(yAccel>threshold)||(yAccel<-threshold)||(zAccel>threshold)||(zAccel<-threshold)){
-      (angry = true);
+      angry = true;
     } else {
-      (angry = false);
+      angry = false;
     }
     
     if (angry==true){
       Serial.println("Don't move me so fast!");
-      (moodPoints-10);
-    } else  {
+      moodPoints -= 150;
+    } else {
       Serial.println("I am calm");
-      (moodPoints+10);
-      (angry = false);
+      moodPoints += 100;
+      Serial.println(moodPoints); 
+      Serial.println("done");
+      angry = false;
     }
 
   /*
