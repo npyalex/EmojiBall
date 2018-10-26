@@ -286,7 +286,7 @@ void checkOrient(){
       moodPoints -= 150;
     } else {
       Serial.println("I am calm");
-      moodPoints += 100;
+      moodPoints += 200;
       Serial.println(moodPoints); 
       Serial.println("done");
       angry = false;
