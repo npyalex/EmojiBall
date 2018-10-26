@@ -2,6 +2,9 @@
  * Melody Code provided from code by Tom Igoe
  * http://www.arduino.cc/en/Tutorial/Tone
  */
+ /*
+  * Orientation Code provided by Adafruit [CITATION NEEDED]
+  */
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
@@ -13,9 +16,9 @@ int angryTune[] = { NOTE_CS8, NOTE_CS8, NOTE_CS8 };
 int happyTune[] = { NOTE_F6, NOTE_DS6, NOTE_CS6, NOTE_DS6, NOTE_CS6 };
 int calmTune[] = { NOTE_C4, 0, NOTE_C4, NOTE_G4, 0, NOTE_G4, NOTE_A4, 0, NOTE_A4, NOTE_G4 };
 //note durations: 2 = half note, 4 = quarter note, 8 = eighth note
-int angryNoteDuration[] = {2,2,2};
-int calmNoteDuration[] = {8, 16, 8, 8, 2};
-int happyNoteDuration[] = {8, 16, 8, 8, 16, 8, 8, 16, 8, 2};
+int angryNoteDuration[] = {2, 2, 2};
+int happyNoteDuration[] = {8, 16, 8, 8, 2};
+int calmNoteDuration[] = {8, 16, 8, 8, 16, 8, 8, 16, 8, 2};
 
 //initialize Pin 8 as the pin that controls the green LEDs
 const int greenPin = 8;
@@ -74,8 +77,9 @@ void setup() {
   
   //bluePin is an output
   pinMode(bluePin, OUTPUT);
-
-  //pinMode(3, INPUT_PULLUP);
+  
+  //speaker
+  pinMode(4, INPUT_PULLUP);
 
   // initialize serial communication at 9600 bits per second
   Serial.begin(9600);  
@@ -114,7 +118,7 @@ void loop() {
       getCalm();
     } else if(moodPoints <= 250 && moodPoints >= 0){
       // Mad Zone
-      getMad();
+      getAngry();
     } else  {
       // Error occured
       Serial.println("Error with mood points range");
@@ -174,12 +178,12 @@ void getHappy(){
  * Turns on red LED & turns off the rest. 
  * Pass 'mad' mood to makeASound()
  */
-void getMad(){
+void getAngry(){
   digitalWrite(greenPin,LOW);
   digitalWrite(redPin,HIGH);
   digitalWrite(yellowPin, LOW);
   digitalWrite(bluePin, LOW);
-  makeASound("mad");
+  makeASound("angry");
 }
 
 /*
@@ -202,33 +206,33 @@ void makeASound(String mood){
   // TODO Check the mood & play a sound
   if(mood.equals("happy")){
     Serial.println("Happy Song"); 
-    for (int thisNote = 0; thisNote < 3; thisNote++) {  
+    for (int thisNote = 0; thisNote < 5; thisNote++) {  
       int noteDuration = 2000 / happyNoteDuration[thisNote];
       tone(speakerPin, happyTune[thisNote], noteDuration);
       int pauseBetweenNotes = noteDuration * 1.30;
-      delay(50);
+      delay(pauseBetweenNotes);
       // stop the tone playing:
       noTone(speakerPin);
     }   
   } else if(mood.equals("calm")){
     Serial.println("Calm Song");
-    for (int thisNote = 0; thisNote < 3; thisNote++) {  
+    for (int thisNote = 0; thisNote < 10; thisNote++) {  
       int noteDuration = 2000 / calmNoteDuration[thisNote];
       tone(speakerPin, calmTune[thisNote], noteDuration);
   
       int pauseBetweenNotes = noteDuration * 1.30;
-      delay(50);
+      delay(pauseBetweenNotes);
       // stop the tone playing:
       noTone(speakerPin);
     }
-  } else if (mood.equals("mad")){
-    Serial.println("Mad Song");
+  } else if (mood.equals("angry")){
+    Serial.println("Angry Song");
     for (int thisNote = 0; thisNote < 3; thisNote++) {  
       int noteDuration = 2000 / angryNoteDuration[thisNote];
       tone(speakerPin, angryTune[thisNote], noteDuration);
   
       int pauseBetweenNotes = noteDuration * 1.30;
-      delay(50);
+      delay(pauseBetweenNotes);
       // stop the tone playing:
       noTone(speakerPin);
     }
@@ -279,7 +283,7 @@ void checkOrient(){
     
     if (angry==true){
       Serial.println("Don't move me so fast!");
-      (moodPoints-50);
+      (moodPoints-10);
     } else  {
       Serial.println("I am calm");
       (moodPoints+10);
