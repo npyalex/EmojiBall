@@ -7,6 +7,9 @@
  * https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code
  * 
  * Special thanks to Omid Ettehadi for invaluable engineering advice
+ * 
+ * Circuit diagram for the ball components can be found at
+ * https://drive.google.com/file/d/1YQUWh7QaF56-_6E6iHsZxhAD_fljR3Im/view?usp=sharing
  */
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
@@ -275,7 +278,6 @@ void checkOrient(){
   */ 
  
   if(millis()-lastRead>=sampleRate){ 
-    //some delay before it becomes calm again
     /*if the acceleraction is above a threshold, become angry*/
     if ((xAccel>threshold)||(xAccel<-threshold)||(yAccel>threshold)||(yAccel<-threshold)||(zAccel>threshold)||(zAccel<-threshold)){
       angry = true;
