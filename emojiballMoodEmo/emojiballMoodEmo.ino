@@ -1,10 +1,13 @@
 /*
  * Melody Code provided from code by Tom Igoe
  * http://www.arduino.cc/en/Tutorial/Tone
+ *
+ *
+ * Orientation Sensor provided by Adafruit at 
+ * https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code
+ * 
+ * Special thanks to Omid Ettehadi for invaluable engineering advice
  */
- /*
-  * Orientation Code provided by Adafruit [CITATION NEEDED]
-  */
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
@@ -245,8 +248,7 @@ void makeASound(String mood){
  * Check the balls orientation
  */
 void checkOrient(){
-  // TODO Check the orientation of the ball
-  // Possible vector values can be:
+   // Possible vector values can be:
   // - VECTOR_ACCELEROMETER - m/s^2
   // - VECTOR_MAGNETOMETER  - uT
   // - VECTOR_GYROSCOPE     - rad/s
