@@ -8,25 +8,23 @@ Emojiball is a game where you must manage the mood of three balls in order to sc
 The game is played with at least three players, with one goal per player. A happy (green) ball that enters a player's goal scores the thrower one point. An angry (red) ball that enters a player's goal means the player who owns that goal has lost a point.
 
 ## The Code
-The file emojiballMoodEmo is the finished code for the final EmojiBall. 
+The file emojiballMoodEmo.ino is the finished code for the final EmojiBall. 
 Other files are testing grounds for various features.
 
-Circuit diagrams for the ball components can be found at https://drive.google.com/file/d/1YQUWh7QaF56-_6E6iHsZxhAD_fljR3Im/view?usp=sharing
+Circuit diagrams for the ball components can be found [here](https://drive.google.com/file/d/1YQUWh7QaF56-_6E6iHsZxhAD_fljR3Im/view?usp=sharing)
 
 ### Libraries
 Uses code from the following libraries:
-pitches.h
-Wire.h
-Adafruit_Sensor.h
-Adafruit_BNO055.h
+- pitches.h
+- Wire.h
+- Adafruit_Sensor.h
+- Adafruit_BNO055.h
 
 ## Special Thanks
 
-Melody Code provided from code by Tom Igoe
-http://www.arduino.cc/en/Tutorial/Tone
+Melody Code provided from code by [Tom Igoe](http://www.arduino.cc/en/Tutorial/Tone)
 
-Orientation Sensor code provided by Adafruit at 
-https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code
+Orientation Sensor code provided by [Adafruit](https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/arduino-code)
 
 Crucial guidance, suggestions, and coding insights provided by Kate Hartman and Nick Puckett
 
